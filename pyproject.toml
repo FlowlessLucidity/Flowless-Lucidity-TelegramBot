@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "flowless-lucidity-telegrambot"
+version = "0.1.0"
+description = "Telegram bot for Flowless Lucidity service. Telegram bot for Flowless Lucidity service. Have your own STRUCTURED dream diary!"
+authors = ["Flowless Lucidity <flowlesslucidity@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+asyncio = "^3.4.3"
+aiogram = "^3.3.0"
+pymongo = "^4.6.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
