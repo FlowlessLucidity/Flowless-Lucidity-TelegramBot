@@ -1,19 +1,23 @@
-from os import getenv
-from pymongo.mongo_client import MongoClient
+from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.server_api import ServerApi
-import urllib.parse
+from secrets import *
+
+class Database:
+    def __init__(self):
+        self.uri = f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_CLUSTER}.mpm8hbk.mongodb.net/?retryWrites=true&w=majority"
+        # Create a new client and connect to the server
+        self.client = AsyncIOMotorClient(self.uri, server_api=ServerApi('1'))
+        # Send a ping to confirm a successful connection
+        try:
+            self.client.admin.command('ping')
+            print("Pinged your deployment. You successfully connected to MongoDB!")
+            self.db = self.client[MONGO_DATABASE]
+            self.collection = self.db[MONGO_COLLECTION]
+        except Exception as e:
+            print(e)
+
+    async def random_dream(self):
+        data = await self.collection.find_one({})
+        return data
 
 
-MONGO_USER = urllib.parse.quote(getenv("MONGO_USER"), safe='/', encoding="utf-8", errors=None)
-MONGO_CLUSTER = urllib.parse.quote(getenv("MONGO_CLUSTER"), safe='/', encoding="utf-8", errors=None)
-MONGO_PASSWORD = urllib.parse.quote(getenv("MONGO_PASSWORD"), safe='/', encoding="utf-8", errors=None)
-
-uri = f"mongodb+srv://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_CLUSTER}.mpm8hbk.mongodb.net/?retryWrites=true&w=majority"
-# Create a new client and connect to the server
-client = MongoClient(uri, server_api=ServerApi('1'))
-# Send a ping to confirm a successful connection
-try:
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)

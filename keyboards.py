@@ -15,6 +15,8 @@ main_keyboard = ReplyKeyboardMarkup(
         ],
         [
             buttons.list_dreams,
+        ],
+        [
             buttons.new_dream
         ]
     ],
