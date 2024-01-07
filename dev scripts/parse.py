@@ -23,7 +23,7 @@ for dream in dream_diary_txt[:]:
             "number of REM phases": None,
             "dream type": None,
             "sleep type": None,
-            "dream": dream[dream.index("\n") + 1 :].strip(),
+            "dream": dream[dream.index("\n") + 1:].strip(),
         }
     )
     print(dream.split("\n")[0], "done")

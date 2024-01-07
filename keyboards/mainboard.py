@@ -1,11 +1,7 @@
 from aiogram.types import(
-    ReplyKeyboardMarkup,
-    KeyboardButton,
-    InlineKeyboardMarkup,
-    InlineKeyboardButton
+    ReplyKeyboardMarkup
 )
-import buttons
-
+from keyboards import buttons
 
 main_keyboard = ReplyKeyboardMarkup(
     keyboard=[

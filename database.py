@@ -16,8 +16,9 @@ class Database:
         except Exception as e:
             print(e)
 
-    async def random_dream(self):
-        data = await self.collection.find_one({})
-        return data
+    async def get_random_dream(self):
+        data = await self.collection.aggregate([{"$sample": {"size": 1}}]).to_list(length=None)
+        return data[0]
+
 
 
