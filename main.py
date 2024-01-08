@@ -5,18 +5,15 @@ import sys
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from database import Database
-from handlers import basic_handlers, not_trusted
+from handlers import basic_handlers, not_trusted, new_dream_handler
 from secrets import *
-
-
-
 
 
 async def main() -> None:
     bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
     database = Database()
     dp = Dispatcher()
-    dp.include_routers(not_trusted.router, basic_handlers.router)
+    dp.include_routers(basic_handlers.router, new_dream_handler.router, not_trusted.router)
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot, db=database)
 

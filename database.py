@@ -19,6 +19,8 @@ class Database:
     async def get_random_dream(self):
         data = await self.collection.aggregate([{"$sample": {"size": 1}}]).to_list(length=None)
         return data[0]
+    async def set_new_dream(self, approved_dream: dict):
+        await self.collection.insert_one(approved_dream)
 
 
 

@@ -1,6 +1,4 @@
-from aiogram.types import(
-    ReplyKeyboardMarkup
-)
+from aiogram.types import ReplyKeyboardMarkup
 from keyboards import buttons
 
 main_keyboard = ReplyKeyboardMarkup(
@@ -14,6 +12,16 @@ main_keyboard = ReplyKeyboardMarkup(
         ],
         [
             buttons.new_dream
+        ]
+    ],
+    resize_keyboard=True,
+    one_time_keyboard=True,
+)
+yes_no = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            buttons.yes,
+            buttons.no,
         ]
     ],
     resize_keyboard=True,

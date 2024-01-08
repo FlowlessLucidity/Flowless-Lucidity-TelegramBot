@@ -1,20 +1,20 @@
 from aiogram import Router, F
 from aiogram.filters import CommandStart
+from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 from aiogram.utils.markdown import hbold
 from motor.core import AgnosticDatabase as MDB
 
-from filters.trust_list import TrustedFilter, NotTrustedFilter
+import keyboards.dateboard
+from filters.trust_list import TrustedFilter
 from keyboards import buttons
 from keyboards.mainboard import main_keyboard
 from secrets import *
-
+from utils.states import NewDreamState
 
 router = Router()
 router.message.filter(TrustedFilter())
-@router.message(
-    CommandStart(),
-    TrustedFilter())
+@router.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
     """
     This handler receives messages with `/start` command
@@ -22,19 +22,29 @@ async def command_start_handler(message: Message) -> None:
     print(message.from_user.id)
     await message.answer(f"Привет, {hbold(message.from_user.full_name)}!", reply_markup=main_keyboard)
 
-@router.message(
-    TrustedFilter(),
-    F.text == buttons.new_dream.text)
-async def new_dream_handler(message: Message, db: MDB) -> None:
-    await message.answer(buttons.new_dream.text)
+@router.message(F.text == buttons.new_dream.text)
+async def new_dream_handler(message: Message, db: MDB, state: FSMContext) -> None:
+    await message.answer(
+        text="Введите дату",
+        reply_markup=keyboards.dateboard.today_or_diff
+    )
+    await state.set_state(NewDreamState.enter_date)
 
-@router.message(
 
-    F.text == buttons.random_dream.text)
-async def new_dream_handler(message: Message, db: MDB) -> None:
+@router.message(F.text == buttons.random_dream.text)
+async def random_dream_handler(message: Message, db: MDB) -> None:
     record = await db.get_random_dream()
-    await message.answer(record["dream"])
+    answer_text = ''
+    answer_form = {
+        'date': '📅 ',
+        'sleep type': '🌙 ' if record['sleep type'] == 'Дневной' else "☀️ ",
+        'dream': '',
+        'dream type': '🌙' ,
+        'location': '🌄 ',
+    }
+    for key in answer_form.keys():
+        if record[key] is not None:
+            answer_text += f'{answer_form[key]}{record[key]}\n'
+    await message.answer(answer_text)
 
-@router.message(TrustedFilter())
-async def new_dream_handler(message: Message, db: MDB) -> None:
-    await message.answer("Пока не имплементировано")
+
