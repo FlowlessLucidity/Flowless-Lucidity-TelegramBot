@@ -1,3 +1,4 @@
+<img src="https://github.com/FlowlessLucidity/Flowless-Lucidity-TelegramBot/workflows/syntax-check/badge.svg">
 # Flowless Lucidity TelegramBot
 
 Осознанные сны — это сны, в которых ты осознал, что спишь, что дало тебе над ними контроль, возможность там делать всё, что пожелаешь.
