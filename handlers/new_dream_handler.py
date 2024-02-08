@@ -26,13 +26,18 @@ async def date_handler(message: Message, state: FSMContext) -> None:
             await state.set_state(NewDreamState.enter_dream)
             await message.answer("Теперь сам сон")
         case buttons.diff_date.text:
-            try:
-                sussy_date = datetime.datetime.strptime(message.text, "%d.%m.%y")
-                await state.update_data(date=sussy_date)
-                await state.set_state(NewDreamState.enter_dream)
-                await message.answer("Теперь сам сон")
-            except ValueError:
-                await message.answer("Ещё раз, dd.mm.yy")
+            await message.answer("Формат: dd.mm.yy")
+            await state.set_state(NewDreamState.enter_sussy_date)
+
+@router.message(NewDreamState.enter_sussy_date)
+async def date_handler(message: Message, state: FSMContext) -> None:
+    try:
+        sussy_date = datetime.datetime.strptime(message.text, "%d.%m.%y")
+        await state.update_data(date=sussy_date)
+        await state.set_state(NewDreamState.enter_dream)
+        await message.answer("Теперь сам сон")
+    except ValueError:
+        await message.answer("Ещё раз, dd.mm.yy")
 @router.message(NewDreamState.enter_dream)
 async def dream_handler(message: Message, state: FSMContext) -> None:
     await state.update_data(dream=message.text.strip())

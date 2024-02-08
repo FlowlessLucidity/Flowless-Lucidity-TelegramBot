@@ -1,4 +1,5 @@
 <img src="https://github.com/FlowlessLucidity/Flowless-Lucidity-TelegramBot/workflows/syntax-check/badge.svg">
+
 # Flowless Lucidity TelegramBot
 
 Осознанные сны — это сны, в которых ты осознал, что спишь, что дало тебе над ними контроль, возможность там делать всё, что пожелаешь.
@@ -22,4 +23,20 @@
 - asyncio ^3.4.3
 - aiogram ^3.3.0
 - pymongo ^4.6.1
+- pytz = ^2023.3.post1
 
+## Запуск
+
+Ввести ключи в .env файл или ввести переменные окружения с помощью export<br>
+
+> BOT_TOKEN=<br>
+> MONGO_CLUSTER=<br>
+> MONGO_DATABASE=<br>
+> MONGO_PASSWORD=<br>
+> MONGO_USER=<br>
+> TRUSTED_USER=<br>
+> MONGO_COLLECTION=<br>
+
+> poetry shell
+
+> poetry run main.py 

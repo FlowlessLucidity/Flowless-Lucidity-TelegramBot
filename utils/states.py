@@ -2,6 +2,7 @@ from aiogram.fsm.state import StatesGroup, State
 
 class NewDreamState(StatesGroup):
     enter_date = State()
+    enter_sussy_date = State()
     enter_dream = State()
     enter_sleep_type = State()
     enter_location = State()
