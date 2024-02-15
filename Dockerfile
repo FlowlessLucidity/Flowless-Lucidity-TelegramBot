@@ -1,7 +1,7 @@
 FROM python:3.11
 
 # Устанавливаем Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 -
+RUN pip install poetry
 
 # Обновляем переменную PATH, чтобы включить исполняемые файлы Poetry
 ENV PATH="/root/.poetry/bin:${PATH}"

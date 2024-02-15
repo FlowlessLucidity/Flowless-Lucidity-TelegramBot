@@ -40,3 +40,7 @@
 > poetry shell
 
 > poetry run main.py 
+
+## Docker
+>docker build -t flow .<br>
+>docker run --restart always -d flow
